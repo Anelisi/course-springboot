@@ -1,5 +1,7 @@
 package com.ani_deva.springcourse.entities;
 
+import com.ani_deva.springcourse.entities.enuns.OrderStatus;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
@@ -14,15 +16,18 @@ public class Order implements Serializable {
     private Long id;
     private Instant moment;
 
+    private Integer orderStatus;
+
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
 
     public Order() {    }
 
-    public Order(Long id, Instant moment, User client) {
+    public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
         this.id = id;
         this.moment = moment;
+        setOrderStatus(orderStatus);
         this.client = client;
     }
 
@@ -50,7 +55,15 @@ public class Order implements Serializable {
         this.client = client;
     }
 
+    public OrderStatus getOrderStatus() {
+        return OrderStatus.valueOf(orderStatus);
+    }
 
+    public void setOrderStatus(OrderStatus orderStatus) {
+        if (orderStatus != null) {
+            this.orderStatus = orderStatus.getCode();
+        }
+    }
 
     @Override
     public boolean equals(Object o) {
