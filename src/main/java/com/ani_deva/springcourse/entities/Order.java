@@ -1,6 +1,7 @@
 package com.ani_deva.springcourse.entities;
 
 import com.ani_deva.springcourse.entities.enuns.OrderStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,6 +17,7 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy 'T' HH:mm:ss 'Z'", timezone = "GMT")
     private Instant moment;
 
     private Integer orderStatus;

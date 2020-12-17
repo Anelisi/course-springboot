@@ -2,6 +2,7 @@ package com.ani_deva.springcourse.services;
 
 import com.ani_deva.springcourse.entities.User;
 import com.ani_deva.springcourse.repositories.UserRepository;
+import com.ani_deva.springcourse.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ public class UserService {
 
     public User findById(Long id) {
         Optional<User> obj = repository.findById(id);
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public User insert(User obj) {
